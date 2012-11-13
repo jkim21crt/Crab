@@ -16,9 +16,9 @@ int leftStep = 1;
 int center = 90;
 int incomingByte;
 
-int trig1 = 12; // front
-int trig2 = 13;
-int trig3 = 11;
+int trig1 = 3; // front
+int trig2 = 4;
+int trig3 = 5;
 
 
 int LED = 3;
@@ -66,10 +66,6 @@ void loop()
    Serial.write(3);
  }
  
-
- 
- 
- 
  digitalWrite(LED, HIGH);
 
 
@@ -106,7 +102,11 @@ void loop()
   right.write(rightHigh);
   }
   
-  /*
+ } // end serialavailable
+}//end loop
+
+
+
   void forward(){
   
     delay(hold);
@@ -140,90 +140,12 @@ void turnRight(){
 }
 
 void halt(){
+  
  left.write(center);
  right.write(center);
  digitalWrite(LED, LOW); 
-}
-  
-  
-  */
-  
-  
-  
-  
- }
-}
-
-void forward(){
- for(leftpos = leftLow; leftpos<leftHigh; leftpos+=leftStep)
- {
-  
-   Serial.println("left: "+leftpos);
-   right.write(leftpos);
-   left.write(leftpos);
-   delay(hold);
- }
- 
-
-
-    
-}
-
-
-void lefty(){
- 
- for(leftpos = leftLow; leftpos<leftHigh; leftpos+=leftStep)
- {
-   left.write(leftpos); 
-   delay(hold);
- }
- 
- for(rightpos = rightHigh; rightpos>rightLow; rightpos-=rightStep)
- {
-   right.write(rightpos);
-  delay(hold); 
- }
- 
-  for(leftpos = leftHigh; leftpos>leftLow; leftpos-=leftStep)
- {
-   left.write(leftpos); 
-   delay(hold);
- }
- 
-  for(rightpos = rightLow; rightpos<rightHigh; rightpos-=rightStep)
- {
-   right.write(rightpos);
-  delay(hold); 
- }
  
 }
 
 
-void righty(){
-  
-  for(leftpos = leftHigh; leftpos>leftLow; leftpos-=leftStep)
- {
-   left.write(leftpos); 
-   delay(hold);
- }
- 
-  for(rightpos = rightLow; rightpos<rightHigh; rightpos-=rightStep)
- {
-   right.write(rightpos);
-  delay(hold); 
- }
- 
-  for(leftpos = leftLow; leftpos<leftHigh; leftpos+=leftStep)
- {
-   left.write(leftpos); 
-   delay(hold);
- }
- 
- for(rightpos = rightHigh; rightpos>rightLow; rightpos-=rightStep)
- {
-   right.write(rightpos);
-  delay(hold); 
- }
-  
-}
 
