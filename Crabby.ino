@@ -107,7 +107,43 @@ void loop()
   }
   
   /*
+  void forward(){
   
+    delay(hold);
+    left.write(leftHigh);
+    right.write(rightLow);
+    delay(hold);
+    left.write(leftLow);
+    right.write(rightHigh);
+   
+  }
+  
+void turnLeft(){
+  
+  delay(hold);  
+  left.write(leftHigh);
+  right.write(rightLow);
+  delay(hold);
+  left.write(center);
+  right.write(center);
+  
+}
+
+void turnRight(){
+  
+  delay(hold);
+  left.write(leftLow);
+  right.write(rightHigh);
+  delay(hold);
+  left.write(center);
+  right.write(center);
+}
+
+void halt(){
+ left.write(center);
+ right.write(center);
+ digitalWrite(LED, LOW); 
+}
   
   
   */
