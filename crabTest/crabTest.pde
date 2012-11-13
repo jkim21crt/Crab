@@ -47,12 +47,6 @@ void draw(){
      counter = 0;
     }
     
-    if(key == 'm'){
-     myPort.write('F');
-     counter = 0;
-    }
-    
-    
   
     }// key press
 

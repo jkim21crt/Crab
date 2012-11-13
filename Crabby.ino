@@ -98,10 +98,6 @@ void loop()
   left.write(leftHigh);
   }
   
-  if(incomingByte == 'F'){
-  right.write(rightHigh);
-  }
-  
  } // end serialavailable
 }//end loop
 
@@ -143,8 +139,21 @@ void halt(){
   
  left.write(center);
  right.write(center);
+ delay(hold);
  digitalWrite(LED, LOW); 
  
+}
+
+void leanFront(){
+  left.write(leftLow);
+  right.write(rightHigh);
+  delay(hold);
+}
+
+void leanBack(){
+ left.write(leftHigh);
+  right.write(rightLow); 
+  delay(hold)
 }
 
 
