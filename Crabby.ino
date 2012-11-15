@@ -4,20 +4,18 @@ Servo left;
 Servo right;
 
 int counter;
-int leftpos;
-int hold = 350;
-int leftHigh = 83;
-int leftLow = 97;
+int ground = 0;
+int hold = 120;
+int lHigh =100;
+int lLow = 60;
+int rLow = 80;
+int rHigh = 120;
 int rightpos;
-int rightHigh = 97;
-int rightLow = 83;
-int rightStep = 1;
-int leftStep = 1;
 int center = 90;
 int incomingByte;
 
-int trig1 = 3; // front
-int trig2 = 4;
+int trig1 = 4; // front
+int trig2 = 2;
 int trig3 = 5;
 
 
@@ -35,70 +33,67 @@ void setup()
   left.attach(6);
   right.attach(7);
 
- // left.write(center);
-  //right.write(center);
   pinMode(LED, OUTPUT);
   pinMode(trig1, INPUT);
   pinMode(trig2, INPUT);
   pinMode(trig3, INPUT);
 
-  left.write(90);
-  right.write(90);
+  left.write(lLow);
+  right.write(rHigh);
   
 }
 
 void loop()
 {
+
  trigValue1 = digitalRead(trig1);
  trigValue2 = digitalRead(trig2);
  trigValue3 = digitalRead(trig3);
 
  
- if(trigValue1 == HIGH){
-   Serial.write(1);
+if(trigValue1 == HIGH && trigValue2 == LOW && trigValue3 == LOW){
+  ground =1;
+ 
+}
+else if(trigValue2 == HIGH && trigValue3 == LOW)
+{
+ ground = 2; 
+}
+
+else if(trigValue2 ==LOW && trigValue3 == HIGH)
+{
+ ground = 3; 
+}
+
+else { ground = 0;}
+ 
+
+ 
+ if(ground==1)
+ {
+   forward(); 
  }
  
- if(trigValue2 == HIGH){
-   Serial.write(2);
- }
+ if(ground==2)
+ {
+
+   for(int i = 0; i<30; i++)
+   {
+   turnLeft();
+   }
  
- if(trigValue3 == HIGH){
-   Serial.write(3);
+ }
+ if(ground==3)
+ {
+
+     for(int a = 0; a<30; a++)
+   {
+   turnRight();
+   }
  }
  
  digitalWrite(LED, HIGH);
 
-
- if (Serial.available() > 0) {
-    // read the oldest byte in the serial buffer:
-    incomingByte = Serial.read();
-  
-  if(incomingByte == 'A'){
-    left.write(leftHigh);
-    right.write(rightLow);
-  }
-  
-  if(incomingByte == 'B'){
-  left.write(center);
-  right.write(center);
-  }
-  
-  if(incomingByte == 'C'){
-  left.write(leftLow);
-  right.write(rightHigh);
-  }
-  
-  if(incomingByte == 'D'){
-  right.write(rightLow);
-  left.write(leftLow);
-  }
-  
-  if(incomingByte == 'E'){
-  right.write(rightHigh);
-  left.write(leftHigh);
-  }
-  
- } // end serialavailable
 }//end loop
 
 
@@ -106,21 +101,21 @@ void loop()
   void forward(){
   
     delay(hold);
-    left.write(leftHigh);
-    right.write(rightLow);
+    left.write(lLow);
+    right.write(rHigh);
     delay(hold);
-    left.write(leftLow);
-    right.write(rightHigh);
+    left.write(lHigh);
+    right.write(rLow);
    
   }
   
 void turnLeft(){
   
   delay(hold);  
-  left.write(leftHigh);
-  right.write(rightLow);
+  left.write(lLow);
+  right.write(center);
   delay(hold);
-  left.write(center);
+  left.write(lHigh);
   right.write(center);
   
 }
@@ -128,33 +123,14 @@ void turnLeft(){
 void turnRight(){
   
   delay(hold);
-  left.write(leftLow);
-  right.write(rightHigh);
+  right.write(rHigh);
+  left.write(center);
   delay(hold);
   left.write(center);
-  right.write(center);
+  right.write(rLow);
 }
 
-void halt(){
-  
- left.write(center);
- right.write(center);
- delay(hold);
- digitalWrite(LED, LOW); 
- 
-}
 
-void leanFront(){
-  left.write(leftLow);
-  right.write(rightHigh);
-  delay(hold);
-}
-
-void leanBack(){
- left.write(leftHigh);
-  right.write(rightLow); 
-  delay(hold)
-}
 
 
 
